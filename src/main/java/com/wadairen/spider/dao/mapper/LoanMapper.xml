@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wadairen.spider.dao.mapper.LoanMapper">
+  <insert id="insert4update" useGeneratedKeys="true" keyProperty="id" parameterType="com.wadairen.spider.dao.bean.LoanModel">
+     insert into loan_info(
+     site_id,site,source_url,source_url_hash,
+     title,credit_type,interest,interest_type,
+     amount,period,period_type,progress,
+     status,borrower_id,borrower_type,pay_way,
+     reward,min_invest,intro,created_at,updated_at)
+     VALUES 
+     (#{site_id},#{site},#{source_url},#{source_url_hash},
+     #{title},#{credit_type},#{interest},#{interest_type},
+     #{amount},#{period},#{period_type},#{progress},
+     #{status},#{borrower_id},#{borrower_type},#{pay_way},
+     #{reward},#{min_invest},#{intro},#{created_at},#{updated_at}) 
+     ON DUPLICATE KEY UPDATE
+     progress=#{progress} , status=#{status} , updated_at=#{updated_at}
+  </insert>
+  
+    <select id="selectByHash" parameterType="String" resultType="com.wadairen.spider.dao.bean.LoanModel">
+  	select * from loan_info where source_url_hash=#{source_url_hash}
+ 	 </select>
+</mapper>
